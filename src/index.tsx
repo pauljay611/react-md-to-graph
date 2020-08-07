@@ -1,10 +1,6 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import "./style/global.css";
+import App from "./components/App";
 
-import { Hello } from "./components/Hello";
-
-ReactDOM.render(
-  <Hello compiler="TypeScript" framework="React" />,
-  document.getElementById("app")
-);
+ReactDOM.render(<App />, document.getElementById("app"));
