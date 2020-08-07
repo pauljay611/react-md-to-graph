@@ -1,7 +1,8 @@
 import React from "react";
 import styld from "styled-components";
 
-import Header from "./Header";
+import Header from "./components/Header";
+import Editor from "./containers/Editor";
 
 const Layout = styld.div`
     width: 100vw;
@@ -21,7 +22,9 @@ const App = () => {
   return (
     <Layout>
       <Header title={title}></Header>
-      <Main></Main>
+      <Main>
+        <Editor></Editor>
+      </Main>
     </Layout>
   );
 };
