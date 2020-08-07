@@ -4,6 +4,7 @@ import styld from "styled-components";
 import Header from "./components/Header";
 import Editor from "./containers/Editor";
 import Graph from "./containers/Graph";
+import Scaler from "./containers/Scaler";
 
 const Layout = styld.div`
     width: 100vw;
@@ -25,6 +26,7 @@ const App = () => {
       <Header title={title}></Header>
       <Main>
         <Editor></Editor>
+        <Scaler></Scaler>
         <Graph></Graph>
       </Main>
     </Layout>

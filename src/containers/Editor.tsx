@@ -20,7 +20,7 @@ const Editor = () => {
   }, []);
 
   return (
-    <Wrapper>
+    <Wrapper width="50%">
       <AceEditor
         width="100%"
         height="100vh"

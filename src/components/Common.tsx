@@ -1,6 +1,18 @@
-import styld from "styled-components";
+import styld, { css } from "styled-components";
+
+interface WrapperProps {
+  isWorkspace?: boolean;
+  width?: string;
+}
 
 export const Wrapper = styld.div`
-flex: 1;
-max-width: 50%;
+${(props: WrapperProps) =>
+  css`
+    width: ${props.width};
+  `};
+`;
+
+export const ScalerComponent = styld.div`
+    width: 1px;
+    heigth: 100%;
 `;

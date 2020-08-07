@@ -1,6 +1,7 @@
 import React from "react";
-import { GraphView, IEdge, INode } from "react-digraph";
+import { GraphView } from "react-digraph";
 import { Wrapper } from "../components/Common";
+import { nodes, edges } from "../utils/graphConfig";
 
 const GraphConfig = {
   NodeTypes: {
@@ -51,48 +52,6 @@ const GraphConfig = {
   },
 };
 
-const { nodes, edges }: { nodes: INode[]; edges: IEdge[] } = {
-  nodes: [
-    {
-      id: 1,
-      title: "Node A",
-      type: "empty",
-    },
-    {
-      id: 2,
-      title: "Node B",
-      type: "empty",
-    },
-    {
-      id: 3,
-      title: "Node C",
-      type: "custom",
-    },
-    {
-      id: 4,
-      title: "Node C",
-      type: "custom",
-    },
-  ],
-  edges: [
-    {
-      source: "1",
-      target: "2",
-      type: "emptyEdge",
-    },
-    {
-      source: "2",
-      target: "4",
-      type: "emptyEdge",
-    },
-    {
-      source: "3",
-      target: "4",
-      type: "emptyEdge",
-    },
-  ],
-};
-
 const NODE_KEY = "id";
 
 const Graph = () => {
@@ -101,7 +60,7 @@ const Graph = () => {
   const EdgeTypes = GraphConfig.EdgeTypes;
 
   return (
-    <Wrapper>
+    <Wrapper width="50%">
       <GraphView
         // ref="GraphView"
         nodeKey={NODE_KEY}
@@ -111,7 +70,7 @@ const Graph = () => {
         nodeTypes={NodeTypes}
         nodeSubtypes={NodeSubtypes}
         edgeTypes={EdgeTypes}
-        layoutEngineType="HorizontalTree"
+        layoutEngineType="VerticalTree"
         //   onSelectNode={this.onSelectNode}
         //   onCreateNode={this.onCreateNode}
         //   onUpdateNode={this.onUpdateNode}
