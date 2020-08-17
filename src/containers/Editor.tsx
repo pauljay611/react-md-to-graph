@@ -1,5 +1,6 @@
 import React, { useState, useCallback } from "react";
 import AceEditor from "react-ace";
+import MarkdownIt from "markdown-it";
 
 import { Wrapper } from "../components/Common";
 
@@ -12,11 +13,44 @@ const defaultValue = `# 2008 TW Momo
 // write something in markdown
 `;
 
+const md = new MarkdownIt();
+
 const Editor = () => {
   const [value, setValue] = useState(defaultValue);
 
   const onChange = useCallback((newValue) => {
     setValue(newValue);
+    const raw = md.render(newValue);
+    const root = document.createElement("div");
+    root.innerHTML = raw;
+    const domTree = root.children;
+    const nodes: any = [];
+    const allNodes = [];
+    Array.from(domTree).forEach((item) => {
+      if (item.tagName === "HR") {
+        allNodes.push([...nodes]);
+        nodes.length = 0;
+        return;
+      }
+      nodes.push(item);
+    });
+    allNodes.push([...nodes]);
+    const m = allNodes.map((node) => {
+      const template = {
+        tag: "",
+        content: [],
+        target: [],
+      };
+      template.tag = node.find((n) => n.tagName === "H1")?.textContent ?? "";
+      template.content = node.filter(
+        (n) => n.tagName !== "H1" && n.tagName !== "UL"
+      );
+      template.target = node
+        .filter((n) => n.tagName === "UL")
+        .map((ul) => Array.from(ul.children).map((c) => c.textContent));
+      return template;
+    });
+    console.log(m);
   }, []);
 
   return (
