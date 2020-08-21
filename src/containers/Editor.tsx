@@ -4,6 +4,8 @@ import MarkdownIt from "markdown-it";
 
 import { Wrapper } from "../components/Common";
 
+import { Parser } from "../utils/Parser";
+
 import "ace-builds/src-noconflict/mode-markdown";
 import "ace-builds/src-noconflict/theme-monokai";
 // code snippets
@@ -21,37 +23,7 @@ const Editor = () => {
   const onChange = useCallback((newValue) => {
     setValue(newValue);
     const raw = md.render(newValue);
-    const parser = new DOMParser();
-    const domTree = parser
-      .parseFromString(raw, "text/html")
-      .querySelector("body").children;
-    const nodes: any = [];
-    const allNodes = [];
-    Array.from(domTree).forEach((item) => {
-      if (item.tagName === "HR") {
-        allNodes.push([...nodes]);
-        nodes.length = 0;
-        return;
-      }
-      nodes.push(item);
-    });
-    allNodes.push([...nodes]);
-    const m = allNodes.map((node) => {
-      const template = {
-        tag: "",
-        content: [],
-        target: [],
-      };
-      template.tag = node.find((n) => n.tagName === "H1")?.textContent ?? "";
-      template.content = node.filter(
-        (n) => n.tagName !== "H1" && n.tagName !== "UL"
-      );
-      template.target = node
-        .filter((n) => n.tagName === "UL")
-        .map((ul) => Array.from(ul.children).map((c) => c.textContent));
-      return template;
-    });
-    console.log(m);
+    console.log(Parser(raw, "HR", ["H1"]));
   }, []);
 
   return (
