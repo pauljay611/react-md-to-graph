@@ -21,9 +21,10 @@ const Editor = () => {
   const onChange = useCallback((newValue) => {
     setValue(newValue);
     const raw = md.render(newValue);
-    const root = document.createElement("div");
-    root.innerHTML = raw;
-    const domTree = root.children;
+    const parser = new DOMParser();
+    const domTree = parser
+      .parseFromString(raw, "text/html")
+      .querySelector("body").children;
     const nodes: any = [];
     const allNodes = [];
     Array.from(domTree).forEach((item) => {
