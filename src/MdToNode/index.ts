@@ -16,7 +16,7 @@ interface IGraphConfig {
 }
 
 interface IMdtoGraphNode {
-    getAllNodes(): Node[]
+    getAllNodes(tagName: string): Node[]
     transGraphNode(): GraphNode
 }
 
@@ -29,8 +29,8 @@ export default class MdToGraphNode implements IMdtoGraphNode {
         this.mdText = mdText
     }
 
-    getAllNodes() {
-        return getTextNode(this.mdText, "H1")
+    getAllNodes(tagName: string) {
+        return getTextNode(this.mdText, tagName)
     }
 
     transGraphNode() {
