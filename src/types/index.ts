@@ -9,6 +9,6 @@ export interface Node {
 
 export interface GraphNode {
     tag: string;
-    content: Element[];
+    content: string;
     target: string[];
 }
