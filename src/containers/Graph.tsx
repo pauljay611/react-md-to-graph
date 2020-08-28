@@ -17,13 +17,12 @@ const Graph = () => {
 
   const { state } = useGlobalState();
   const raw = md.render(state.rawText);
-  const mdNodes = new MdToNode(raw, ['H1', 'H2'], ['LI'])
-  console.log(mdNodes.getAllNodes('LI', { edge: true }))
+  const mdNodes = new MdToNode(raw, ['H1', 'H2'], ['LI'], GraphConfig)
+  console.log(mdNodes.transGraphNode())
 
   return (
     <Wrapper width="50%">
       <GraphView
-        // ref="GraphView"
         nodeKey={NODE_KEY}
         nodes={nodes}
         edges={edges}

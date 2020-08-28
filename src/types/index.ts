@@ -10,8 +10,16 @@ export interface Node<T> {
 
 export type NodeProps<T> = Record<string, T>
 
-export interface GraphNode {
-    tag: string;
-    content: string;
-    target: string[];
+interface IGraphType {
+    typeText?: string,
+    shapeId: string,
+    shape: JSX.Element,
+}
+
+export type IGraphTypes = Record<string, IGraphType>
+
+export interface IGraphConfig {
+    NodeTypes: IGraphTypes
+    NodeSubtypes?: IGraphTypes
+    EdgeTypes: IGraphTypes
 }

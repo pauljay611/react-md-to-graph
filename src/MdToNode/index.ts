@@ -1,34 +1,24 @@
 import { getTextNode } from './helpers'
-import { Node, GraphNode, NodeProps } from '../types'
-
-interface IGraphType {
-    typeText: string,
-    shapeID: string,
-    shape: Element,
-}
-
-type IGraphTypes = Record<string, IGraphType>
-
-interface IGraphConfig {
-    NodeTypes: IGraphTypes
-    NodeSubtypes: IGraphTypes
-    EdgeTypes: IGraphTypes
-}
+import { Node, NodeProps, IGraphConfig } from '../types'
+import { INode, IEdge } from 'react-digraph'
 
 interface IMdtoGraphNode {
     getAllNodes<T>(tagName: string): Node<T>[]
-    transGraphNode(): GraphNode
+    transGraphNode(): IGraphNode
 }
 
 interface IGraphNode {
-    GraphConfig: IGraphConfig
+    GraphConfig: IGraphConfig,
+    Node: INode[],
+    Edge: IEdge[]
 }
 
 export default class MdToGraphNode implements IMdtoGraphNode {
-    constructor(private mdText: string, private tagNames: string[], private edgeNames: string[]) {
+    constructor(private mdText: string, private tagNames: string[], private edgeNames: string[], private graphConfig: IGraphConfig) {
         this.mdText = mdText
         this.tagNames = tagNames
         this.edgeNames = edgeNames
+        this.graphConfig = graphConfig
     }
 
     getAllNodes<T>(tagName: string, props?: NodeProps<T>) {
@@ -36,10 +26,19 @@ export default class MdToGraphNode implements IMdtoGraphNode {
     }
 
     transGraphNode() {
+        const nodes: INode[] = this.tagNames.map(name => this.getAllNodes<string>(name)
+            .map(node => ({ type: node.type, title: node.textContent, props: node.props })))
+            .reduce((acc, value) => ([...acc, ...value]), [])
+
+        const edges: IEdge[] = this.edgeNames.map(name => this.getAllNodes<string>(name, { source: 'H1' })
+            .map(node => ({ type: node.type, source: node.props.source, target: node.textContent, props: node.props })))
+            .reduce((acc, value) => ([...acc, ...value]), [])
+
+
         return {
-            tag: '',
-            content: '',
-            target: ['']
+            GraphConfig: this.graphConfig,
+            Node: nodes,
+            Edge: edges
         }
     }
 }

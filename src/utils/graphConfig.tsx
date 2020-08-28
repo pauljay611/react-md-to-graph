@@ -1,4 +1,5 @@
 import React from "react";
+import { IGraphTypes } from '../types'
 import { IEdge, INode } from "react-digraph";
 
 export const GraphConfig = {
@@ -34,7 +35,7 @@ export const GraphConfig = {
       ),
     },
   },
-  NodeSubtypes: {},
+  NodeSubtypes: {} as IGraphTypes,
   EdgeTypes: {
     emptyEdge: {
       // required to show empty edges
