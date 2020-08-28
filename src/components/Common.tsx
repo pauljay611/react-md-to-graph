@@ -7,12 +7,7 @@ interface WrapperProps {
 
 export const Wrapper = styld.div`
 ${(props: WrapperProps) =>
-  css`
+    css`
     width: ${props.width};
   `};
-`;
-
-export const ScalerComponent = styld.div`
-    width: 1px;
-    heigth: 100%;
 `;

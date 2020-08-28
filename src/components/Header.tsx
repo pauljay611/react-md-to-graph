@@ -1,5 +1,4 @@
 import React from "react";
-import styld from "styled-components";
 
 export interface HeaderProps {
   title: string;
