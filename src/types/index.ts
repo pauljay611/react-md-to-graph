@@ -2,10 +2,13 @@ export enum ActionType {
     SetRawText = 'set-rawText'
 }
 
-export interface Node {
+export interface Node<T> {
     type: string,
-    textContent: string
+    textContent: string,
+    props?: NodeProps<T>
 }
+
+export type NodeProps<T> = Record<string, T>
 
 export interface GraphNode {
     tag: string;

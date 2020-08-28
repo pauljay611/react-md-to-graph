@@ -1,5 +1,5 @@
 import { getTextNode } from './helpers'
-import { Node, GraphNode } from '../types'
+import { Node, GraphNode, NodeProps } from '../types'
 
 interface IGraphType {
     typeText: string,
@@ -16,7 +16,7 @@ interface IGraphConfig {
 }
 
 interface IMdtoGraphNode {
-    getAllNodes(tagName: string): Node[]
+    getAllNodes<T>(tagName: string): Node<T>[]
     transGraphNode(): GraphNode
 }
 
@@ -25,12 +25,14 @@ interface IGraphNode {
 }
 
 export default class MdToGraphNode implements IMdtoGraphNode {
-    constructor(private mdText: string) {
+    constructor(private mdText: string, private tagNames: string[], private edgeNames: string[]) {
         this.mdText = mdText
+        this.tagNames = tagNames
+        this.edgeNames = edgeNames
     }
 
-    getAllNodes(tagName: string) {
-        return getTextNode(this.mdText, tagName)
+    getAllNodes<T>(tagName: string, props?: NodeProps<T>) {
+        return getTextNode(this.mdText, tagName, props)
     }
 
     transGraphNode() {

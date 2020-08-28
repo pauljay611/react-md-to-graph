@@ -17,8 +17,8 @@ const Graph = () => {
 
   const { state } = useGlobalState();
   const raw = md.render(state.rawText);
-  const mdNodes = new MdToNode(raw)
-  console.log(mdNodes.getAllNodes())
+  const mdNodes = new MdToNode(raw, ['H1', 'H2'], ['LI'])
+  console.log(mdNodes.getAllNodes('LI', { edge: true }))
 
   return (
     <Wrapper width="50%">
