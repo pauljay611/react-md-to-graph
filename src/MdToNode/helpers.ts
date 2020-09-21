@@ -6,20 +6,22 @@ import { Node, NodeProps, EdgeProps, Edge } from '../types'
  * @param {string} nodeTags - tags for markdown html tag 
  */
 
+function createDomNodeByText(domText: string, nodeTag: string) {
+    const parser = new DOMParser();
+    const domTree = parser.parseFromString(domText, "text/html").querySelector("body");
+
+    return Array.from(domTree.querySelectorAll(nodeTag))
+}
+
 export function getTextNode<T>(
     raw: string,
     nodeTag: string,
     props: NodeProps<T>
 ): Node<T>[] {
-    const parser = new DOMParser();
-    const domTree = parser.parseFromString(raw, "text/html").querySelector("body");
-
-    const allNodes = [...domTree.querySelectorAll(nodeTag)].map(node => {
+    return createDomNodeByText(raw, nodeTag).map(node => {
         const [id = ''] = node.textContent.split(" ")
         return { id, type: node.tagName, textContent: node.textContent.split(id).join(""), props }
     })
-
-    return allNodes
 }
 
 export function getTextEdge<T>(
@@ -27,14 +29,9 @@ export function getTextEdge<T>(
     nodeTag: string,
     props: EdgeProps<T>
 ): Edge<T>[] {
-    const parser = new DOMParser();
-    const domTree = parser.parseFromString(raw, "text/html").querySelector("body");
-
-    const allNodes = [...domTree.querySelectorAll(nodeTag)].map(node => {
+    return createDomNodeByText(raw, nodeTag).map(node => {
         const [key] = node.textContent.split(" ")
         const [source = '', target = ''] = key.split(":")
         return { source, target, type: node.tagName, textContent: node.textContent.split(key).join(""), props }
     })
-
-    return allNodes
 }
