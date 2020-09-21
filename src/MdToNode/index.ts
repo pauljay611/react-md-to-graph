@@ -1,4 +1,4 @@
-import { getTextNode } from './helpers'
+import { getTextNode, getTextEdge } from './helpers'
 import { Node, NodeProps, IGraphConfig } from '../types'
 import { INode, IEdge } from 'react-digraph'
 
@@ -25,15 +25,18 @@ export default class MdToGraphNode implements IMdtoGraphNode {
         return getTextNode(this.mdText, tagName, props)
     }
 
+    getAllEdges<T>(tagName: string, props?: NodeProps<T>) {
+        return getTextEdge(this.mdText, tagName, props)
+    }
+
     transGraphNode() {
         const nodes: INode[] = this.tagNames.map(name => this.getAllNodes<string>(name)
-            .map(node => ({ type: node.type, title: node.textContent, props: node.props })))
+            .map(node => ({ id: node.id, type: node.type, title: node.id, props: { ...node.props, textContent: node.textContent } })))
             .reduce((acc, value) => ([...acc, ...value]), [])
 
-        const edges: IEdge[] = this.edgeNames.map(name => this.getAllNodes<string>(name, { source: 'H1' })
-            .map(node => ({ type: node.type, source: node.props.source, target: node.textContent, props: node.props })))
+        const edges: IEdge[] = this.edgeNames.map(name => this.getAllEdges<string>(name)
+            .map(edge => ({ type: edge.type, source: edge.source, target: edge.target, props: { ...edge.props, textContent: edge.textContent } })))
             .reduce((acc, value) => ([...acc, ...value]), [])
-
 
         return {
             GraphConfig: this.graphConfig,

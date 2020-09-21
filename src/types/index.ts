@@ -3,12 +3,23 @@ export enum ActionType {
 }
 
 export interface Node<T> {
+    id: string,
     type: string,
     textContent: string,
     props?: NodeProps<T>
 }
 
 export type NodeProps<T> = Record<string, T>
+
+export interface Edge<T> {
+    source: string,
+    target: string,
+    type: string,
+    textContent: string,
+    props?: EdgeProps<T>
+}
+
+export type EdgeProps<T> = Record<string, T>
 
 interface IGraphType {
     typeText?: string,

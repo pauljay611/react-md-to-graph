@@ -1,8 +1,8 @@
 import React from "react";
-import { GraphView } from "react-digraph";
+import { GraphView, INode } from "react-digraph";
 import MarkdownIt from "markdown-it";
 import { Wrapper } from "../components/Common";
-import { nodes, edges, GraphConfig } from "../utils/graphConfig";
+import { GraphConfig } from "../utils/graphConfig";
 import { useGlobalState } from "../providers";
 import MdToNode from "../MdToNode";
 
@@ -10,7 +10,7 @@ const NODE_KEY = "id";
 
 const md = new MarkdownIt();
 
-const Graph = () => {
+const Graph: React.FC = () => {
   const NodeTypes = GraphConfig.NodeTypes;
   const NodeSubtypes = GraphConfig.NodeSubtypes;
   const EdgeTypes = GraphConfig.EdgeTypes;
@@ -18,7 +18,12 @@ const Graph = () => {
   const { state } = useGlobalState();
   const raw = md.render(state.rawText);
   const mdNodes = new MdToNode(raw, ['H1', 'H2'], ['LI'], GraphConfig)
-  console.log(mdNodes.transGraphNode())
+  const nodes = mdNodes.transGraphNode().Node
+  const edges = mdNodes.transGraphNode().Edge
+
+  const onSelectNode = (val: INode) => {
+    console.log(val)
+  }
 
   return (
     <Wrapper width="50%">
@@ -31,7 +36,7 @@ const Graph = () => {
         nodeSubtypes={NodeSubtypes}
         edgeTypes={EdgeTypes}
         layoutEngineType="VerticalTree"
-      //   onSelectNode={this.onSelectNode}
+        onSelectNode={onSelectNode}
       //   onCreateNode={this.onCreateNode}
       //   onUpdateNode={this.onUpdateNode}
       //   onDeleteNode={this.onDeleteNode}
