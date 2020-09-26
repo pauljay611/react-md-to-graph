@@ -1,16 +1,20 @@
 language: node_js
 node_js:
 - stable
-install: 
+install:
 - npm install
-script: 
+script:
 - npm run build
-deploy:
-  provider: pages
-  skip_cleanup: true
-  github_token: $GH_TOKEN  # Set in the settings page of your repository, as a secure variable
-  keep_history: true
+after_success:
+- cd ./dist
+- git init
+- git config --global user.name "${U_NAME}"
+- git config --global user.email "${U_EMAIL}"
+- git add .
+- git commit -m "Automatically update from travis-ci"
+- git push --quiet --force  "https://${U_NAME}:${GH_TOKEN}@${GH_REF}" master:gh-pages
 branches:
 only:
 - master
 on_failure: always
+# Note: you should set Environment Variables here or 'Settings' on travis-ci.org
