@@ -1,13 +1,14 @@
 const path = require("path");
 const HtmlWebPackPlugin = require("html-webpack-plugin");
+const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+
 module.exports = {
   entry: "./src/index.tsx",
   output: {
     filename: "public/bundle.js",
     path: path.resolve(__dirname, "dist"),
   },
-
-  devtool: "source-map",
 
   resolve: {
     extensions: [".ts", ".tsx", ".js", ".json"],
@@ -31,7 +32,7 @@ module.exports = {
       },
       {
         test: /\.css$/i,
-        use: ["style-loader", "css-loader"],
+        use: [MiniCssExtractPlugin.loader, "css-loader"],
       },
       {
         test: /.tsx$/,
@@ -53,5 +54,20 @@ module.exports = {
       template: "index.html",
       filename: "index.html",
     }),
+    new UglifyJsPlugin({ parallel: true }),
+    new MiniCssExtractPlugin(),
   ],
+  optimization: {
+    splitChunks: {
+      cacheGroups: {
+        vendor: {
+          test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/,
+          name: "vendor",
+          chunks: "initial",
+          enforce: true,
+          priority: 10, // 預設為 0，必須大於預設 cacheGroups
+        },
+      },
+    },
+  },
 };

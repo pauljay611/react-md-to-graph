@@ -7,7 +7,7 @@
   "scripts": {
     "clean": "rm -rf ./dist",
     "start": "webpack-dev-server --hot",
-    "build": "webpack",
+    "build": "webpack -p",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -22,6 +22,7 @@
     "@types/react-dom": "^16.9.8",
     "@types/styled-components": "^5.1.2",
     "babel-loader": "^8.1.0",
+    "compression-webpack-plugin": "^6.0.2",
     "css-loader": "^4.2.1",
     "eslint": "^7.9.0",
     "eslint-config-airbnb": "^18.2.0",
@@ -30,8 +31,10 @@
     "eslint-plugin-react": "^7.21.2",
     "eslint-plugin-react-hooks": "^4.1.2",
     "html-webpack-plugin": "^4.3.0",
+    "mini-css-extract-plugin": "^0.11.2",
     "style-loader": "^1.2.1",
     "typescript": "^3.9.7",
+    "uglifyjs-webpack-plugin": "^2.2.0",
     "webpack": "^4.44.1",
     "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3.11.0"
