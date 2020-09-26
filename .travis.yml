@@ -5,7 +5,7 @@ install:
 - npm install
 script: 
 - npm run build
-after_success: 
+deploy:
   provider: pages
   skip_cleanup: true
   github_token: $GH_TOKEN  # Set in the settings page of your repository, as a secure variable
