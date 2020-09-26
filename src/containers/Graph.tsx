@@ -17,13 +17,13 @@ const Graph: React.FC = () => {
 
   const { state } = useGlobalState();
   const raw = md.render(state.rawText);
-  const mdNodes = new MdToNode(raw, ['H1', 'H2'], ['LI'], GraphConfig)
-  const nodes = mdNodes.transGraphNode().Node
-  const edges = mdNodes.transGraphNode().Edge
+  const mdNodes = new MdToNode(raw, ["H1", "H2"], ["LI"], GraphConfig);
+  const nodes = mdNodes.transGraphNode().Node;
+  const edges = mdNodes.transGraphNode().Edge;
 
   const onSelectNode = (val: INode) => {
-    console.log(val)
-  }
+    console.log(val);
+  };
 
   return (
     <Wrapper width="50%">
@@ -37,13 +37,13 @@ const Graph: React.FC = () => {
         edgeTypes={EdgeTypes}
         layoutEngineType="VerticalTree"
         onSelectNode={onSelectNode}
-      //   onCreateNode={this.onCreateNode}
-      //   onUpdateNode={this.onUpdateNode}
-      //   onDeleteNode={this.onDeleteNode}
-      //   onSelectEdge={this.onSelectEdge}
-      //   onCreateEdge={this.onCreateEdge}
-      //   onSwapEdge={this.onSwapEdge}
-      //   onDeleteEdge={this.onDeleteEdge}
+        //   onCreateNode={this.onCreateNode}
+        //   onUpdateNode={this.onUpdateNode}
+        //   onDeleteNode={this.onDeleteNode}
+        //   onSelectEdge={this.onSelectEdge}
+        //   onCreateEdge={this.onCreateEdge}
+        //   onSwapEdge={this.onSwapEdge}
+        //   onDeleteEdge={this.onDeleteEdge}
       />
     </Wrapper>
   );

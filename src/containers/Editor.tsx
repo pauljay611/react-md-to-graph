@@ -3,7 +3,7 @@ import AceEditor from "react-ace";
 
 import { Wrapper } from "../components/Common";
 import { useGlobalState } from "../providers";
-import { ActionType } from '../types'
+import { ActionType } from "../types";
 
 import "ace-builds/src-noconflict/mode-markdown";
 import "ace-builds/src-noconflict/theme-monokai";

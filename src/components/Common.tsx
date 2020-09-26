@@ -7,7 +7,7 @@ interface WrapperProps {
 
 export const Wrapper = styld.div`
 ${(props: WrapperProps) =>
-    css`
+  css`
     width: ${props.width};
   `};
 `;

@@ -5,7 +5,7 @@ import Header from "./components/Header";
 import Editor from "./containers/Editor";
 import Graph from "./containers/Graph";
 
-import { StateProvider } from './providers'
+import { StateProvider } from "./providers";
 
 const Layout = styld.div`
     width: 100vw;
