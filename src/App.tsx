@@ -8,20 +8,18 @@ import Graph from "./containers/Graph";
 import { StateProvider } from "./providers";
 
 const Layout = styld.div`
-    width: 100vw;
-    heigth: 100vh;
+    width: 100%;
 `;
 
 const Main = styld.div`
     display: flex;
-    width: 100%;
     heigth: 100%;
     border: 1px solid black;
 `;
 
-const App = () => {
-  const title = "React md to graph";
+const title = "React md to graph";
 
+const App = () => {
   return (
     <Layout>
       <Header title={title}></Header>
