@@ -9,9 +9,7 @@ export const GraphConfig = {
       shapeId: "#H1", // relates to the type property of a node
       shape: (
         <symbol viewBox="0 0 100 100" id="H1" key="0">
-          <circle cx="50" cy="50" r="45">
-            {" "}
-          </circle>
+          <circle cx="50" cy="50" r="45" />
         </symbol>
       ),
     },

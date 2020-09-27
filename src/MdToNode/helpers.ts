@@ -12,7 +12,9 @@ function createDomNodeByText(domText: string, nodeTag: string) {
     .parseFromString(domText, "text/html")
     .querySelector("body");
 
-  return Array.from(domTree.querySelectorAll(nodeTag));
+  const allNodeTag = domTree.querySelectorAll(nodeTag);
+
+  return Array.from(allNodeTag);
 }
 
 export function getTextNode<T>(
@@ -21,7 +23,7 @@ export function getTextNode<T>(
   props: NodeProps<T>
 ): Node<T>[] {
   return createDomNodeByText(raw, nodeTag).map((node) => {
-    const [id = ""] = node.textContent.split(" ");
+    const id = node.textContent.split(/[\[|\]]/g)[1] ?? "";
     return {
       id,
       type: node.tagName,
