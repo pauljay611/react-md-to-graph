@@ -15,7 +15,7 @@ const Wrapper = styld.div`
   padding: 0 5px;
 `;
 
-const Header = (props: HeaderProps) => (
+const Header: React.FC<HeaderProps> = (props: HeaderProps) => (
   <Wrapper>
     <h1>{props.title}</h1>
     <h1>{props.title}</h1>

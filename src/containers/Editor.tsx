@@ -10,7 +10,7 @@ import "ace-builds/src-noconflict/theme-monokai";
 // code snippets
 import "ace-builds/src-noconflict/ext-language_tools";
 
-const Editor = () => {
+const Editor: React.FC = () => {
   const { state, dispatch } = useGlobalState();
   const onChange = useCallback((newValue) => {
     dispatch({ type: ActionType.SetRawText, payload: { value: newValue } });

@@ -1,3 +1,8 @@
 module.exports = {
-    "extends": "airbnb"
+  extends: "airbnb",
+  parser: "typescript-eslint-parser",
+  parserOptions: {
+    jsx: true,
+    useJSXTextNode: true,
+  },
 };
