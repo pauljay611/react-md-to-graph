@@ -52,5 +52,5 @@ export function getTextEdge<T>(
 }
 
 export function filteredIllegalText(str: string) {
-  return str.match(/\w+/g).join("");
+  return (str.match(/\w+/g) || []).join("");
 }

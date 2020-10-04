@@ -34,3 +34,25 @@ export interface IGraphConfig {
   NodeSubtypes?: IGraphTypes;
   EdgeTypes: IGraphTypes;
 }
+
+export interface ISetting {
+  key: string;
+  markdownTag: Tags;
+  typeText: string;
+  shape: ShapeNames;
+}
+
+export enum Tags {
+  H1 = "H1",
+  H2 = "H2",
+  H3 = "H3",
+  H4 = "H4",
+  H5 = "H5",
+  LI = "LI",
+}
+
+export enum ShapeNames {
+  Circle = "Circle",
+  Rectangle = "Rectangle",
+  Triangle = "Triangle",
+}
