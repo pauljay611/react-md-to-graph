@@ -17,7 +17,7 @@ interface IContext {
 }
 
 const initialState: State = {
-  rawText: `# 2008 TW Momo // write something in markdown`,
+  rawText: `# [2008] TW Momo // write something in markdown`,
 };
 
 const Context = createContext<IContext>({

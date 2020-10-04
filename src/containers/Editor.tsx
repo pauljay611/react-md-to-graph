@@ -12,9 +12,13 @@ import "ace-builds/src-noconflict/ext-language_tools";
 
 const Editor: React.FC = () => {
   const { state, dispatch } = useGlobalState();
-  const onChange = useCallback((newValue) => {
-    dispatch({ type: ActionType.SetRawText, payload: { value: newValue } });
-  }, []);
+
+  const onChange = useCallback(
+    (newValue) => {
+      dispatch({ type: ActionType.SetRawText, payload: { value: newValue } });
+    },
+    [dispatch]
+  );
 
   return (
     <Wrapper width="50%">
