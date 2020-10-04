@@ -1,6 +1,5 @@
 const path = require("path");
 const HtmlWebPackPlugin = require("html-webpack-plugin");
-const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
@@ -54,7 +53,6 @@ module.exports = {
       template: "index.html",
       filename: "index.html",
     }),
-    new UglifyJsPlugin({ parallel: true }),
     new MiniCssExtractPlugin(),
   ],
   optimization: {
