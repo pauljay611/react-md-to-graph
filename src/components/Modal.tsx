@@ -33,7 +33,7 @@ const Block = styld.div`
 `;
 
 const defaultSettings: ISetting = {
-  key: uuidv4(),
+  id: uuidv4(),
   markdownTag: Tags.H1,
   typeText: "Phase",
   shape: ShapeNames.Circle,
@@ -45,13 +45,22 @@ const Modal: React.FC<ModalProps> = (props: ModalProps) => {
   const [settings, setSettings] = useState<ISetting[]>([defaultSettings]);
 
   const addSettingsHandler = useCallback(() => {
-    const newSettings = [...settings, { ...defaultSettings, key: uuidv4() }];
+    const newSettings = [...settings, { ...defaultSettings, id: uuidv4() }];
     setSettings(newSettings);
   }, [settings]);
 
   const removeSettingsHandler = useCallback(
     (index) => () => {
       const newSettings = settings.filter((_, i) => i !== index);
+      setSettings(newSettings);
+    },
+    [settings]
+  );
+
+  const onChangeSettingsHandler = useCallback(
+    (index) => (value: ISetting) => {
+      const newSettings = [...settings];
+      newSettings[index] = value;
       setSettings(newSettings);
     },
     [settings]
@@ -69,6 +78,8 @@ const Modal: React.FC<ModalProps> = (props: ModalProps) => {
         {settings.map((setting, settingIndex) => (
           <Settings
             removeHandler={removeSettingsHandler(settingIndex)}
+            onChangeHandler={onChangeSettingsHandler(settingIndex)}
+            key={setting.id}
             {...setting}
           ></Settings>
         ))}

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { useForm, Controller } from "react-hook-form";
 import styled from "styled-components";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
@@ -23,6 +23,7 @@ interface IFormInput {
 
 interface ISettingsHandler {
   removeHandler: () => void;
+  onChangeHandler: (value: ISetting) => void;
 }
 
 const Wrapper = styled.div`
@@ -34,35 +35,31 @@ const Wrapper = styled.div`
 
 const Settings: React.FC<ISetting & ISettingsHandler> = ({
   removeHandler,
-  ...props
+  onChangeHandler,
+  ...settings
 }) => {
-  const { handleSubmit, control } = useForm<IFormInput>({
-    defaultValues: {
-      settings: {
-        ...props,
-      },
-    },
-  });
+  const { control } = useForm<IFormInput>();
   const classes = useStyles();
-  const onSubmit = (data: IFormInput) => {
-    console.log(data);
-  };
 
+  const { markdownTag, shape, typeText } = settings;
   return (
     <Wrapper>
-      <form onSubmit={handleSubmit(onSubmit)} className={classes.root}>
+      <form className={classes.root}>
         <Grid container spacing={3} alignItems="center">
           <Grid item xs={2}>
             <Controller
               control={control}
               name="markdownTag"
+              defaultValue={Tags.H1}
               render={() => (
                 <Select
                   options={Object.keys(Tags)}
                   name="markdownTag"
                   label="Markdown Tag"
-                  currentValue={Tags.H1}
-                  onChangeHandler={(v) => console.log(v)}
+                  currentValue={markdownTag}
+                  onChangeHandler={(value: Tags) =>
+                    onChangeHandler({ ...settings, markdownTag: value })
+                  }
                 />
               )}
             />
@@ -71,13 +68,16 @@ const Settings: React.FC<ISetting & ISettingsHandler> = ({
             <Controller
               control={control}
               name="shape"
+              defaultValue={ShapeNames.Circle}
               render={() => (
                 <Select
                   options={Object.keys(ShapeNames)}
                   name="shape"
                   label="Shape"
-                  currentValue={ShapeNames.Circle}
-                  onChangeHandler={(v) => console.log(v)}
+                  currentValue={shape}
+                  onChangeHandler={(value: ShapeNames) =>
+                    onChangeHandler({ ...settings, shape: value })
+                  }
                 />
               )}
             />
@@ -86,12 +86,15 @@ const Settings: React.FC<ISetting & ISettingsHandler> = ({
             <Controller
               control={control}
               name="typeText"
+              defaultValue=""
               render={() => (
                 <Input
                   name="typeText"
                   label="Type Text"
-                  currentValue={ShapeNames.Circle}
-                  onChangeHandler={(v) => console.log(v)}
+                  currentValue={typeText}
+                  onChangeHandler={(value: string) =>
+                    onChangeHandler({ ...settings, typeText: value })
+                  }
                 />
               )}
             />
@@ -114,4 +117,4 @@ const Settings: React.FC<ISetting & ISettingsHandler> = ({
   );
 };
 
-export default Settings;
+export default React.memo(Settings);

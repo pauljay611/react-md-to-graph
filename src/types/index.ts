@@ -36,7 +36,7 @@ export interface IGraphConfig {
 }
 
 export interface ISetting {
-  key: string;
+  id: string;
   markdownTag: Tags;
   typeText: string;
   shape: ShapeNames;

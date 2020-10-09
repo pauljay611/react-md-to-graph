@@ -27,7 +27,6 @@ const CustomSelect: React.FC<SelectProps> = ({
   options,
   name,
   currentValue,
-  label,
   onChangeHandler,
 }) => {
   const classes = useStyles();
@@ -46,8 +45,10 @@ const CustomSelect: React.FC<SelectProps> = ({
           onChange={handleChange}
           variant="outlined"
         >
-          {options.map((option) => (
-            <MenuItem value={option}>{option}</MenuItem>
+          {options.map((option, index) => (
+            <MenuItem key={`${option}-${index}`} value={option}>
+              {option}
+            </MenuItem>
           ))}
         </TextField>
       </FormControl>
