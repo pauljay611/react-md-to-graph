@@ -44,10 +44,18 @@ const Modal: React.FC<ModalProps> = (props: ModalProps) => {
 
   const [settings, setSettings] = useState<ISetting[]>([defaultSettings]);
 
-  const addSettings = useCallback(() => {
-    const newSettings = [...settings, { ...defaultSettings }];
+  const addSettingsHandler = useCallback(() => {
+    const newSettings = [...settings, { ...defaultSettings, key: uuidv4() }];
     setSettings(newSettings);
   }, [settings]);
+
+  const removeSettingsHandler = useCallback(
+    (index) => () => {
+      const newSettings = settings.filter((_, i) => i !== index);
+      setSettings(newSettings);
+    },
+    [settings]
+  );
 
   return (
     <Wrapper
@@ -58,10 +66,18 @@ const Modal: React.FC<ModalProps> = (props: ModalProps) => {
       ref={modalRef}
     >
       <Block>
-        {settings.map((setting) => (
-          <Settings {...setting}></Settings>
+        {settings.map((setting, settingIndex) => (
+          <Settings
+            removeHandler={removeSettingsHandler(settingIndex)}
+            {...setting}
+          ></Settings>
         ))}
-        <Button color="primary" size="small" onClick={addSettings}>
+        <Button
+          color="primary"
+          size="small"
+          onClick={addSettingsHandler}
+          variant="contained"
+        >
           <AddIcon fontSize="small" />
         </Button>
       </Block>
