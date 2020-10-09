@@ -1,7 +1,7 @@
-import React, { useCallback } from "react";
+import React from "react";
 import { useForm, Controller } from "react-hook-form";
 import styled from "styled-components";
-import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
+import { createStyles, makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import RemoveIcon from "@material-ui/icons/Remove";
 import Grid from "@material-ui/core/Grid";
@@ -40,8 +40,8 @@ const Settings: React.FC<ISetting & ISettingsHandler> = ({
 }) => {
   const { control } = useForm<IFormInput>();
   const classes = useStyles();
-
   const { markdownTag, shape, typeText } = settings;
+
   return (
     <Wrapper>
       <form className={classes.root}>

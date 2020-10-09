@@ -1,9 +1,7 @@
 import React from "react";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
-import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
-import Select from "@material-ui/core/Select";
 import TextField from "@material-ui/core/TextField";
 
 interface SelectProps {
@@ -56,4 +54,4 @@ const CustomSelect: React.FC<SelectProps> = ({
   );
 };
 
-export default CustomSelect;
+export default React.memo(CustomSelect);
