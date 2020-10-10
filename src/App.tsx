@@ -32,16 +32,16 @@ const App: React.FC = () => {
   );
 
   return (
-    <Layout>
-      {modal && <Modal openModal={openModal} />}
-      <Header title={title} openModal={openModal}></Header>
-      <Main>
-        <StateProvider>
-          <Editor></Editor>
-          <Graph></Graph>
-        </StateProvider>
-      </Main>
-    </Layout>
+    <StateProvider>
+      <Layout>
+        {modal && <Modal openModal={openModal} />}
+        <Header title={title} openModal={openModal}></Header>
+        <Main>
+            <Editor></Editor>
+            <Graph></Graph>
+        </Main>
+      </Layout>
+    </StateProvider>
   );
 };
 

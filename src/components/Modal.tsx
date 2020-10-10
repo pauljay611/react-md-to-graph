@@ -6,7 +6,8 @@ import Button from "@material-ui/core/Button";
 import styld from "styled-components";
 import Settings from "../containers/Settings";
 
-import { ISetting, Tags, ShapeNames } from "../types";
+import { ISetting, Tags, ShapeNames, ActionType } from "../types";
+import { useGlobalState } from "../providers";
 
 export interface ModalProps {
   openModal: (val: boolean) => void;
@@ -42,17 +43,22 @@ const defaultSettings: ISetting = {
 const Modal: React.FC<ModalProps> = (props: ModalProps) => {
   const modalRef = useRef();
 
-  const [settings, setSettings] = useState<ISetting[]>([defaultSettings]);
+  const { state, dispatch } = useGlobalState();
+  const { settings } = state;
+  // const [settings, setSettings] = useState<ISetting[]>([defaultSettings]);
 
   const addSettingsHandler = useCallback(() => {
     const newSettings = [...settings, { ...defaultSettings, id: uuidv4() }];
-    setSettings(newSettings);
+    dispatch({ type: ActionType.SetSettings, payload: { value: newSettings } });
   }, [settings]);
 
   const removeSettingsHandler = useCallback(
     (index) => () => {
       const newSettings = settings.filter((_, i) => i !== index);
-      setSettings(newSettings);
+      dispatch({
+        type: ActionType.SetSettings,
+        payload: { value: newSettings },
+      });
     },
     [settings]
   );
@@ -61,7 +67,10 @@ const Modal: React.FC<ModalProps> = (props: ModalProps) => {
     (index) => (value: ISetting) => {
       const newSettings = [...settings];
       newSettings[index] = value;
-      setSettings(newSettings);
+      dispatch({
+        type: ActionType.SetSettings,
+        payload: { value: newSettings },
+      });
     },
     [settings]
   );

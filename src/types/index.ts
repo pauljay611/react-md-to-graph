@@ -1,7 +1,19 @@
 export enum ActionType {
   SetRawText = "set-rawText",
+  SetSettings = "set-settings",
 }
 
+type RawTextAction = {
+  type: ActionType.SetRawText;
+  payload: { value: string };
+};
+
+type SettingsAction = {
+  type: ActionType.SetSettings;
+  payload: { value: ISetting[] };
+};
+
+export type Actions = RawTextAction | SettingsAction
 export interface Node<T> {
   id: string;
   type: string;

@@ -117,4 +117,4 @@ const Settings: React.FC<ISetting & ISettingsHandler> = ({
   );
 };
 
-export default React.memo(Settings);
+export default Settings;

@@ -5,21 +5,32 @@ import React, {
   createElement,
   Dispatch,
 } from "react";
-import { ActionType } from "../types";
+import { v4 as uuidv4 } from "uuid";
+import {  Actions, ISetting, Tags, ShapeNames } from "../types";
+import rawTextReducer from "./rawTextReducer";
+import settingsReducer from "./settingsReducer";
 
-type State = { rawText: string };
-
-type Action = { type: ActionType.SetRawText; payload: { value: string } };
+type State = { rawText: string; settings: ISetting[] };
 
 interface IContext {
   state: State;
-  dispatch: Dispatch<Action>;
+  dispatch: Dispatch<Actions>;
 }
 
-const initialState: State = {
-  rawText: `# [2008] TW Momo // write something in markdown
+const defaultSettings: ISetting = {
+  id: uuidv4(),
+  markdownTag: Tags.H1,
+  typeText: "Phase",
+  shape: ShapeNames.Circle,
+};
+
+const defaultRawText: string = `# [2008] TW Momo // write something in markdown
 ## [2009] TW Momo // write something in markdown
-- 2008:2009`,
+- 2008:2009`
+
+const initialState: State = {
+  rawText: defaultRawText,
+  settings: [defaultSettings],
 };
 
 const Context = createContext<IContext>({
@@ -27,16 +38,18 @@ const Context = createContext<IContext>({
   dispatch: () => {},
 });
 
-const reducer = (state: State, action: Action) => {
-  switch (action.type) {
-    case ActionType.SetRawText:
-    default:
-      return { ...state, rawText: action.payload.value };
+function Reducers(state = {} as State, action:Actions) {
+  return {
+    rawText: rawTextReducer(state.rawText, action),
+    settings: settingsReducer(state.settings, action)
   }
-};
+}
 
 export const StateProvider: React.FC = ({ children }) => {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [state, dispatch] = useReducer(
+    Reducers,
+    initialState
+  );
   return createElement(
     Context.Provider,
     {
