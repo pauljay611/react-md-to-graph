@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from "react";
+import React, { useCallback, useRef } from "react";
 import { v4 as uuidv4 } from "uuid";
 import AddIcon from "@material-ui/icons/Add";
 import Button from "@material-ui/core/Button";
@@ -6,7 +6,8 @@ import Button from "@material-ui/core/Button";
 import styld from "styled-components";
 import Settings from "../containers/Settings";
 
-import { ISetting, Tags, ShapeNames, ActionType } from "../types";
+import { ISetting, Tags, ShapeNames } from "../types";
+import { SettingsActionType } from "../providers/ActionTypes";
 import { useGlobalState } from "../providers";
 
 export interface ModalProps {
@@ -45,34 +46,31 @@ const Modal: React.FC<ModalProps> = (props: ModalProps) => {
 
   const { state, dispatch } = useGlobalState();
   const { settings } = state;
-  // const [settings, setSettings] = useState<ISetting[]>([defaultSettings]);
 
   const addSettingsHandler = useCallback(() => {
-    const newSettings = [...settings, { ...defaultSettings, id: uuidv4() }];
-    dispatch({ type: ActionType.SetSettings, payload: { value: newSettings } });
-  }, [settings]);
+    dispatch({
+      type: SettingsActionType.AddSettings,
+    });
+  }, [dispatch]);
 
   const removeSettingsHandler = useCallback(
     (index) => () => {
-      const newSettings = settings.filter((_, i) => i !== index);
       dispatch({
-        type: ActionType.SetSettings,
-        payload: { value: newSettings },
+        type: SettingsActionType.SetSettings,
+        payload: { value: index },
       });
     },
-    [settings]
+    [dispatch]
   );
 
   const onChangeSettingsHandler = useCallback(
     (index) => (value: ISetting) => {
-      const newSettings = [...settings];
-      newSettings[index] = value;
       dispatch({
-        type: ActionType.SetSettings,
-        payload: { value: newSettings },
+        type: SettingsActionType.SetSettings,
+        payload: { value: {index,value} },
       });
     },
-    [settings]
+    [dispatch]
   );
 
   return (

@@ -3,7 +3,7 @@ import AceEditor from "react-ace";
 
 import { Wrapper } from "../components/Common";
 import { useGlobalState } from "../providers";
-import { ActionType } from "../types";
+import { RawActionType } from "../providers/ActionTypes";
 
 import "ace-builds/src-noconflict/mode-markdown";
 import "ace-builds/src-noconflict/theme-monokai";
@@ -15,7 +15,7 @@ const Editor: React.FC = () => {
 
   const onChange = useCallback(
     (newValue) => {
-      dispatch({ type: ActionType.SetRawText, payload: { value: newValue } });
+      dispatch({ type: RawActionType.SetRawText, payload: { value: newValue } });
     },
     [dispatch]
   );

@@ -6,7 +6,8 @@ import React, {
   Dispatch,
 } from "react";
 import { v4 as uuidv4 } from "uuid";
-import {  Actions, ISetting, Tags, ShapeNames } from "../types";
+import { ISetting, Tags, ShapeNames } from "../types";
+import { Actions } from "./ActionTypes";
 import rawTextReducer from "./rawTextReducer";
 import settingsReducer from "./settingsReducer";
 
@@ -17,7 +18,7 @@ interface IContext {
   dispatch: Dispatch<Actions>;
 }
 
-const defaultSettings: ISetting = {
+export const defaultSettings: ISetting = {
   id: uuidv4(),
   markdownTag: Tags.H1,
   typeText: "Phase",
@@ -26,7 +27,7 @@ const defaultSettings: ISetting = {
 
 const defaultRawText: string = `# [2008] TW Momo // write something in markdown
 ## [2009] TW Momo // write something in markdown
-- 2008:2009`
+- 2008:2009`;
 
 const initialState: State = {
   rawText: defaultRawText,
@@ -38,18 +39,15 @@ const Context = createContext<IContext>({
   dispatch: () => {},
 });
 
-function Reducers(state = {} as State, action:Actions) {
+function Reducers(state = {} as State, action: Actions) {
   return {
     rawText: rawTextReducer(state.rawText, action),
-    settings: settingsReducer(state.settings, action)
-  }
+    settings: settingsReducer(state.settings, action),
+  };
 }
 
 export const StateProvider: React.FC = ({ children }) => {
-  const [state, dispatch] = useReducer(
-    Reducers,
-    initialState
-  );
+  const [state, dispatch] = useReducer(Reducers, initialState);
   return createElement(
     Context.Provider,
     {

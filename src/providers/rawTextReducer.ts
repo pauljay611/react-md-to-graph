@@ -1,11 +1,11 @@
-import { ActionType,Actions } from "../types";
+import { RawActionType, Actions } from "./ActionTypes";
 
 const reducer = (state: string, action: Actions) => {
   switch (action.type) {
-    case ActionType.SetRawText:
-      return action.payload.value
+    case RawActionType.SetRawText:
+      return action.payload.value;
     default:
-      return state
+      return state;
   }
 };
 
