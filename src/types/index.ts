@@ -15,24 +15,11 @@ export interface Edge<T> {
   props?: EdgeProps<T>;
 }
 
-export type EdgeProps<T> = Record<string, T>;
-
-interface IGraphType {
-  typeText?: string;
-  shapeId: string;
-  shape: JSX.Element;
-}
-
-export type IGraphTypes = Record<string, IGraphType>;
-
-export interface IGraphConfig {
-  NodeTypes: IGraphTypes;
-  NodeSubtypes?: IGraphTypes;
-  EdgeTypes: IGraphTypes;
-}
+export type EdgeProps<T> = Record<Tags, T>;
 
 export interface ISetting {
   id: string;
+  type: SettingsTypeOptions;
   markdownTag: Tags;
   typeText: string;
   shape: ShapeNames;
@@ -51,4 +38,10 @@ export enum ShapeNames {
   Circle = "Circle",
   Rectangle = "Rectangle",
   Triangle = "Triangle",
+  Edge = "Edge",
+}
+
+export enum SettingsTypeOptions {
+  Edge = "Edge",
+  Node = "Node",
 }

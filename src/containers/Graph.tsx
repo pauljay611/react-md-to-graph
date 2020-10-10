@@ -5,7 +5,7 @@ import MarkdownIt from "markdown-it";
 import { Wrapper } from "../components/Common";
 import ErrorBoundary from "../components/ErrorBoundary";
 
-import { GraphConfig } from "../utils/graphConfig";
+import { createGraphConfig } from "../utils/graphConfig";
 import { useGlobalState } from "../providers";
 import MdToNode from "../MdToNode";
 
@@ -14,15 +14,21 @@ const NODE_KEY = "id";
 const md = new MarkdownIt();
 
 const Graph: React.FC = () => {
-  const NodeTypes = GraphConfig.NodeTypes;
-  const NodeSubtypes = GraphConfig.NodeSubtypes;
-  const EdgeTypes = GraphConfig.EdgeTypes;
-
   const { state } = useGlobalState();
-  const raw = md.render(state.rawText);
-  const mdNodes = new MdToNode(raw, ["H1", "H2"], ["LI"], GraphConfig);
-  const { nodes, edges } = mdNodes.transGraphNode();
 
+  const GraphConfig = createGraphConfig(state.settings);
+
+  const { NodeTypes, NodeSubtypes, EdgeTypes } = GraphConfig;
+
+  const raw = md.render(state.rawText);
+  const mdNodes = new MdToNode(
+    raw,
+    Object.keys(NodeTypes),
+    Object.keys(EdgeTypes),
+    GraphConfig
+  );
+  const { nodes, edges } = mdNodes.transGraphNode();
+  console.log(NodeTypes);
   const onSelectNode = (val: INode) => {
     console.log(val);
   };
@@ -41,7 +47,7 @@ const Graph: React.FC = () => {
           layoutEngineType="VerticalTree"
           onSelectNode={onSelectNode}
           //   onCreateNode={this.onCreateNode}
-          //   onUpdateNode={this.onUpdateNode}
+          //   onUpdateNode={onUpdateNode}
           //   onDeleteNode={this.onDeleteNode}
           //   onSelectEdge={this.onSelectEdge}
           //   onCreateEdge={this.onCreateEdge}

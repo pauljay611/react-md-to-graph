@@ -6,7 +6,7 @@ import React, {
   Dispatch,
 } from "react";
 import { v4 as uuidv4 } from "uuid";
-import { ISetting, Tags, ShapeNames } from "../types";
+import { ISetting, Tags, ShapeNames, SettingsTypeOptions } from "../types";
 import { Actions } from "./ActionTypes";
 import rawTextReducer from "./rawTextReducer";
 import settingsReducer from "./settingsReducer";
@@ -18,11 +18,20 @@ interface IContext {
   dispatch: Dispatch<Actions>;
 }
 
-export const defaultSettings: ISetting = {
+export const defaultNode: ISetting = {
   id: uuidv4(),
+  type: SettingsTypeOptions.Node,
   markdownTag: Tags.H1,
   typeText: "Phase",
   shape: ShapeNames.Circle,
+};
+
+export const defaultEdge: ISetting = {
+  id: uuidv4(),
+  type: SettingsTypeOptions.Edge,
+  markdownTag: Tags.LI,
+  typeText: "Phase",
+  shape: ShapeNames.Edge,
 };
 
 const defaultRawText: string = `# [2008] TW Momo // write something in markdown
@@ -31,7 +40,16 @@ const defaultRawText: string = `# [2008] TW Momo // write something in markdown
 
 const initialState: State = {
   rawText: defaultRawText,
-  settings: [defaultSettings],
+  settings: [
+    defaultNode,
+    {
+      ...defaultNode,
+      shape: ShapeNames.Rectangle,
+      id: uuidv4(),
+      markdownTag: Tags.H2,
+    },
+    defaultEdge,
+  ],
 };
 
 const Context = createContext<IContext>({

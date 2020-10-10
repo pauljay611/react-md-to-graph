@@ -5,7 +5,7 @@ import { createStyles, makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import RemoveIcon from "@material-ui/icons/Remove";
 import Grid from "@material-ui/core/Grid";
-import { ISetting, Tags, ShapeNames } from "../types";
+import { ISetting, Tags, SettingsTypeOptions, ShapeNames } from "../types";
 import Select from "../components/Select";
 import Input from "../components/Input";
 
@@ -40,12 +40,30 @@ const Settings: React.FC<ISetting & ISettingsHandler> = ({
 }) => {
   const { control } = useForm<IFormInput>();
   const classes = useStyles();
-  const { markdownTag, shape, typeText } = settings;
+  const { type, markdownTag, shape, typeText } = settings;
 
   return (
     <Wrapper>
       <form className={classes.root}>
         <Grid container spacing={3} alignItems="center">
+          <Grid item xs={2}>
+            <Controller
+              control={control}
+              name="settingsType"
+              defaultValue={SettingsTypeOptions.Node}
+              render={() => (
+                <Select
+                  options={Object.keys(SettingsTypeOptions)}
+                  name="settingsType"
+                  label="Setting Type"
+                  currentValue={type}
+                  onChangeHandler={(value: SettingsTypeOptions) =>
+                    onChangeHandler({ ...settings, type: value })
+                  }
+                />
+              )}
+            />
+          </Grid>
           <Grid item xs={2}>
             <Controller
               control={control}
@@ -82,7 +100,7 @@ const Settings: React.FC<ISetting & ISettingsHandler> = ({
               )}
             />
           </Grid>
-          <Grid item xs={5}>
+          <Grid item xs={4}>
             <Controller
               control={control}
               name="typeText"

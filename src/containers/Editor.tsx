@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useCallback } from "react";
 import AceEditor from "react-ace";
 
 import { Wrapper } from "../components/Common";
@@ -15,7 +15,10 @@ const Editor: React.FC = () => {
 
   const onChange = useCallback(
     (newValue) => {
-      dispatch({ type: RawActionType.SetRawText, payload: { value: newValue } });
+      dispatch({
+        type: RawActionType.SetRawText,
+        payload: { value: newValue },
+      });
     },
     [dispatch]
   );

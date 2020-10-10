@@ -1,12 +1,11 @@
 import React, { useCallback, useRef } from "react";
-import { v4 as uuidv4 } from "uuid";
 import AddIcon from "@material-ui/icons/Add";
 import Button from "@material-ui/core/Button";
 
 import styld from "styled-components";
 import Settings from "../containers/Settings";
 
-import { ISetting, Tags, ShapeNames } from "../types";
+import { ISetting } from "../types";
 import { SettingsActionType } from "../providers/ActionTypes";
 import { useGlobalState } from "../providers";
 
@@ -34,13 +33,6 @@ const Block = styld.div`
     padding: 10px 30px;
 `;
 
-const defaultSettings: ISetting = {
-  id: uuidv4(),
-  markdownTag: Tags.H1,
-  typeText: "Phase",
-  shape: ShapeNames.Circle,
-};
-
 const Modal: React.FC<ModalProps> = (props: ModalProps) => {
   const modalRef = useRef();
 
@@ -56,7 +48,7 @@ const Modal: React.FC<ModalProps> = (props: ModalProps) => {
   const removeSettingsHandler = useCallback(
     (index) => () => {
       dispatch({
-        type: SettingsActionType.SetSettings,
+        type: SettingsActionType.RemoveSettings,
         payload: { value: index },
       });
     },
@@ -67,7 +59,7 @@ const Modal: React.FC<ModalProps> = (props: ModalProps) => {
     (index) => (value: ISetting) => {
       dispatch({
         type: SettingsActionType.SetSettings,
-        payload: { value: {index,value} },
+        payload: { value: { index, value } },
       });
     },
     [dispatch]

@@ -1,12 +1,12 @@
 import { v4 as uuidv4 } from "uuid";
 import { ISetting } from "../types";
 import { SettingsActionType, SettingsPayload, Actions } from "./ActionTypes";
-import { defaultSettings } from "./index";
+import { defaultNode } from "./index";
 
 const reducer = (state: ISetting[], action: Actions): ISetting[] => {
   switch (action.type) {
     case SettingsActionType.AddSettings:
-      return [...state, { ...defaultSettings, id: uuidv4() }];
+      return [...state, { ...defaultNode, id: uuidv4() }];
     case SettingsActionType.SetSettings:
       const { value, index } = action.payload.value as SettingsPayload;
       const newSettings = [...state];
