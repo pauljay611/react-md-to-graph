@@ -8,11 +8,9 @@ module.exports = {
     filename: "public/bundle.js",
     path: path.resolve(__dirname, "dist"),
   },
-
   resolve: {
-    extensions: [".ts", ".tsx", ".js", ".json", ".css"],
+    extensions: [".ts", ".tsx", ".js", ".css", ".json"],
   },
-
   devServer: {
     hot: true,
     port: 9000,
@@ -30,8 +28,22 @@ module.exports = {
         },
       },
       {
-        test: /\.css$/,
-        use: [MiniCssExtractPlugin.loader,"css-loader"],
+        test: /\.css$/i,
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+              esModule: true,
+            },
+          },
+          {
+            loader: "css-loader",
+            options: {
+              importLoaders: 1,
+              modules: true,
+            },
+          },
+        ],
       },
       {
         test: /.tsx$/,
@@ -53,7 +65,7 @@ module.exports = {
       template: "index.html",
       filename: "index.html",
     }),
-    new MiniCssExtractPlugin(),
+    new MiniCssExtractPlugin({ filename: "style.css" }),
   ],
   optimization: {
     splitChunks: {

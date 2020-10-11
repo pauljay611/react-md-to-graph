@@ -37,8 +37,8 @@ const App: React.FC = () => {
         {modal && <Modal openModal={openModal} />}
         <Header title={title} openModal={openModal}></Header>
         <Main>
-            <Editor></Editor>
-            <Graph></Graph>
+          <Editor></Editor>
+          <Graph></Graph>
         </Main>
       </Layout>
     </StateProvider>
