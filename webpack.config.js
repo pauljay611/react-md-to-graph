@@ -30,8 +30,8 @@ module.exports = {
         },
       },
       {
-        test: /\.css$/i,
-        use: [MiniCssExtractPlugin.loader,"style-loader", "css-loader"],
+        test: /\.css$/,
+        use: [MiniCssExtractPlugin.loader,"css-loader"],
       },
       {
         test: /.tsx$/,
