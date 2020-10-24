@@ -1,9 +1,13 @@
 import React from "react";
 import styld from "styled-components";
+import Button from "@material-ui/core/Button";
+import SaveAltIcon from "@material-ui/icons/SaveAlt";
+import SettingsIcon from "@material-ui/icons/Settings";
 
 export interface HeaderProps {
   title: string;
   openModal: (val: boolean) => void;
+  saveGraph: () => void;
 }
 
 const Wrapper = styld.div`
@@ -33,12 +37,34 @@ const SettingButton = styld.button`
   }
 `;
 
+const RightBlock = styld.div`
+  width: 10%;
+  display: flex;
+  justify-content: flex-end;
+`;
+
 const Header: React.FC<HeaderProps> = (props: HeaderProps) => (
   <Wrapper>
     <h1>{props.title}</h1>
-    <SettingButton onClick={() => props.openModal(true)}>
-      Settings
-    </SettingButton>
+    <RightBlock>
+      <Button
+        color="primary"
+        size="small"
+        onClick={() => props.saveGraph()}
+        variant="contained"
+        style={{ marginRight: "10px" }}
+      >
+        <SaveAltIcon fontSize="small"></SaveAltIcon>
+      </Button>
+      <Button
+        color="primary"
+        size="small"
+        variant="outlined"
+        onClick={() => props.openModal(true)}
+      >
+        <SettingsIcon fontSize="small"></SettingsIcon>
+      </Button>
+    </RightBlock>
   </Wrapper>
 );
 
