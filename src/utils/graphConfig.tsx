@@ -19,7 +19,7 @@ interface IEdgeConfig {
   shape: JSX.Element;
 }
 
-interface IGraphConfig {
+export interface IGraphConfig {
   NodeTypes: INodeConfigs;
   NodeSubtypes: INodeConfigs;
   EdgeTypes: IEdgeConfigs;

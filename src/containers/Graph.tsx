@@ -28,7 +28,6 @@ const Graph: React.FC = () => {
     GraphConfig
   );
   const { nodes, edges } = mdNodes.transGraphNode();
-  console.log(NodeTypes);
   const onSelectNode = (val: INode) => {
     console.log(val);
   };
