@@ -15,7 +15,13 @@ interface IGraphNode {
 	nodes: INode[]
 	edges: IEdge[]
 }
-
+/**
+ * change markdown to graph with nodes and edges
+ * @param {string} mdText - markdown raw text
+ * @param {string} tagNames - tags for markdown html tag
+ * @param {string} edgeNames - edges for markdown html tag
+ * @param {string} graphConfig - graphConfig
+ */
 export default class MdToGraphNode implements IMdToGraphNode {
 	constructor(
 		private mdText: string,

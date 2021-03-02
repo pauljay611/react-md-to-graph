@@ -3,10 +3,15 @@ import { Node, NodeProps, EdgeProps, Edge } from '../types'
 
 /**
  * get markdown raw text to Node object
- * @param {string} raw - markdown raw text
+ * @param {string} domText - markdown raw text
  * @param {string} nodeTags - tags for markdown html tag
  */
 
+/**
+ * build dom tree by DOMParser => selectAll specific tags
+ * @param domText raw dom string
+ * @param nodeTag tag in dom string
+ */
 function createDomNodeByText(domText: string, nodeTag: string) {
 	const parser = new DOMParser()
 	const domTree = parser
