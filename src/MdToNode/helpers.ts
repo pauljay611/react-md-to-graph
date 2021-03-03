@@ -32,7 +32,7 @@ export function getTextNode<T>(
 		// format will be ["", "id", "textContent"]
 		const tokens = node.textContent.split(/[\[|\]]/g)
 		const id = tokens[1] ?? ''
-		const textContent = tokens[2].trim() ?? ''
+		const textContent = tokens[2]?.trim() ?? ''
 		return {
 			id,
 			type: node.tagName,

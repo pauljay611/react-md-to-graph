@@ -59,3 +59,18 @@ Start markdown it and making your own graph!
 ## How does the markdown text compile to each nodes and edges
 
 ![image](./mdToGraph.png)
+
+```
+# [md-test] md-text in editor
+## [nodes-type] nodes settings in <type<Node>, markdownTag, shape, text>
+## [edges-type] edges settings in <type<Edge>, markdownTag, shape, text>
+### [nodes] nodes type in <type, title, props>
+### [edges] edges type in <type, source, target, props>
+# [graph-view] graph view
+- md-test:nodes-type
+- md-test:edges-type
+- nodes-type:nodes
+- edges-type:edges
+- nodes:graph-view
+- edges:graph-view
+```

@@ -30,23 +30,40 @@ export const defaultEdge: ISetting = {
 	id: uuidv4(),
 	type: SettingsTypeOptions.Edge,
 	markdownTag: Tags.LI,
-	typeText: 'Phase',
+	typeText: 'Link',
 	shape: ShapeNames.Edge
 }
 
-const defaultRawText: string = `# [2008] // write something in markdown
-## [2009] // write something in markdown
-- 2008:2009`
+const defaultRawText: string = `# [md-test] md-text in editor
+## [nodes-type] nodes settings in <type<Node>, markdownTag, shape, text>
+## [edges-type] edges settings in <type<Edge>, markdownTag, shape, text>
+### [nodes] nodes type in <type, title, props>
+### [edges] edges type in <type, source, target, props>
+# [graph-view] graph view
+- md-test:nodes-type
+- md-test:edges-type
+- nodes-type:nodes
+- edges-type:edges
+- nodes:graph-view
+- edges:graph-view`
 
 const initialState: State = {
 	rawText: defaultRawText,
 	settings: [
 		defaultNode,
 		{
-			...defaultNode,
+			typeText: 'Epic',
 			shape: ShapeNames.Rectangle,
 			id: uuidv4(),
-			markdownTag: Tags.H2
+			markdownTag: Tags.H2,
+			type: SettingsTypeOptions.Node
+		},
+		{
+			typeText: 'Item',
+			shape: ShapeNames.Triangle,
+			id: uuidv4(),
+			markdownTag: Tags.H3,
+			type: SettingsTypeOptions.Node
 		},
 		defaultEdge
 	]
