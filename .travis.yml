@@ -1,18 +1,19 @@
 language: node_js
 node_js:
-- stable
-install: 
-- npm install
-script: 
-- npm run clean
-- npm run build
+    - stable
+install:
+    - npm install
+script:
+    - npm run clean
+    - npm run test
+    - npm run build
 deploy:
-  provider: pages
-  local_dir: dist
-  skip_cleanup: true
-  github_token: $GH_TOKEN  # Set in the settings page of your repository, as a secure variable
-  keep_history: true
+    provider: pages
+    local_dir: dist
+    skip_cleanup: true
+    github_token: $GH_TOKEN # Set in the settings page of your repository, as a secure variable
+    keep_history: true
 branches:
 only:
-- master
+    - master
 on_failure: always
