@@ -29,11 +29,14 @@ export function getTextNode<T>(
 	props: NodeProps<T>
 ): Node<T>[] {
 	return createDomNodeByText(raw, nodeTag).map((node) => {
-		const id = node.textContent.split(/[\[|\]]/g)[1] ?? ''
+		// format will be ["", "id", "textContent"]
+		const tokens = node.textContent.split(/[\[|\]]/g)
+		const id = tokens[1] ?? ''
+		const textContent = tokens[2].trim() ?? ''
 		return {
 			id,
 			type: node.tagName,
-			textContent: node.textContent.split(id).join(''),
+			textContent,
 			props
 		}
 	})
