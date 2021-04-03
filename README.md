@@ -6,7 +6,7 @@ Visualize your markdown syntax to graph
 -   Easily download your graph
 -   Conveniently save your graph and markdown document
 
-[Example](https://pauljay611.github.io/react-mdToGraph/)
+[Example](https://pauljay611.github.io/react-md-to-graph/)
 
 ---
 
